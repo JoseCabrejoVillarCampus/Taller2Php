@@ -39,6 +39,7 @@
     }
     function algoritmo(float $nota, float $nota2, float $nota3){
         $promedio = ($nota+$nota2+$nota3)/3;
+        return $promedio;
         return validacion($promedio);
     }
     try {
