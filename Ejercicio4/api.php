@@ -3,7 +3,17 @@
     $_DATA = json_decode(file_get_contents("php://input"), true);
     $METHOD = $_SERVER["REQUEST_METHOD"];
 
-    $nombres = array_column($_DATA, 'nombre');
+    try {
+        $res = match($METHOD){
+            "POST" => algoritmo(...$_DATA)
+        };
+    } catch (\Throwable $th) {
+        $res = "Error";
+    }
+
+    function algoritmo(){
+        global $_DATA;
+        $nombres = array_column($_DATA, 'nombre');
     $edades = array_column($_DATA, 'edad');
     $registros = $_DATA; 
 
@@ -36,13 +46,8 @@
         "Estudiante con Mayor Edad" => $personaMaxEdad,
     );
 
-    try {
-        $res = match($METHOD){
-            "POST" => algoritmo(...$_DATA)
-        };
-    } catch (\Throwable $th) {
-        $res = "Error";
+    echo json_encode($mensaje, JSON_PRETTY_PRINT);
     }
 
-    echo json_encode($mensaje, JSON_PRETTY_PRINT);
+    
 ?>
