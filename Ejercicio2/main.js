@@ -1,5 +1,5 @@
 let myFormulario = document.querySelector("#myFormulario");
-let myHeaders = new Headers({"Content-Type": "applicatio/json"});
+let myHeaders = new Headers({"Content-Type": "application/json"});
 let config = {
     headers: myHeaders,
 }

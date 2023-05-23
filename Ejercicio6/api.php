@@ -41,6 +41,13 @@
         "estudiantes Masculinos" => $contadorMasculino,
         "estudiantes Femeninas" => $contadorFemenino
     );
+    try {
+        $res = match ($METHOD) {
+            "POST" => algoritmo(...$_DATA)
+        };
+    } catch (\Throwable $th) {
+        $res = "Error";
+    }
 
     echo json_encode($mensaje, JSON_PRETTY_PRINT);
 ?>

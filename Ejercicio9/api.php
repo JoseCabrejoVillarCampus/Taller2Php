@@ -23,6 +23,12 @@
     if ($maxMarca > 15.50) {
         $mensaje["¡Felicidades!"] = "¡Lo has Conseguido! Has ganado un 500 Milones por romper el record.";
     }
-
+    try {
+        $res = match($METHOD){
+            "POST" => algoritmo(...$_DATA)
+        };
+    } catch (\Throwable $th) {
+        $res = "Error";
+    };
     echo json_encode($mensaje, JSON_PRETTY_PRINT);
 ?>

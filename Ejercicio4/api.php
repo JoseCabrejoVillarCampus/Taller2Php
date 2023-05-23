@@ -1,34 +1,48 @@
 <?php
+    header("Content-Type: application/json; charset:UTF-8");
+    $_DATA = json_decode(file_get_contents("php://input"), true);
+    $METHOD = $_SERVER["REQUEST_METHOD"];
 
-header("Content-Type: application/json; charset:UTF-8");
-$_DATA = json_decode(file_get_contents("php://input"), true);
-$METHOD = $_SERVER["REQUEST_METHOD"];
+    $nombres = array_column($_DATA, 'nombre');
+    $edades = array_column($_DATA, 'edad');
+    $registros = $_DATA; 
 
-$nombre1 = $_DATA["nombre1"];
-$edad1 = $_DATA["edad1"];
-$nombre2 = $_DATA["nombre2"];
-$edad2 = $_DATA["edad2"];
-$nombre3 = $_DATA["nombre3"];
-$edad3 = $_DATA["edad3"];
-$elemento1= array($nombre1=>$edad1);
-$elemento2= array($nombre2=>$edad2);
-$elemento3= array($nombre3=>$edad3);
-$datosFusionados = array_merge($elemento1, $elemento2, $elemento3);
-$personaMas="";
-$edadMas=0;
-
-foreach($datosFusionados as $nombre => $edad){
-    if($edad > $edadMas){
-        $personaMas = $nombre;
-        $edadMas = $edad;
+    foreach ($nombres as $nombre) {
+        if (!is_string($nombre) || empty(trim($nombre)) || !preg_match('/^[A-Za-z]+$/', $nombre)) {
+            $res = "Error, el nombre no puede ser numerico ni contener numeros";
+            echo json_encode($res, JSON_PRETTY_PRINT);
+            exit;
+        }
     }
-}
 
-$mensaje = array(
-    "mensaje" => "La persona mayor es $personaMas con $edadMas anos.",
-    "notas" => $_DATA
-);
+    foreach ($edades as $edad) {
+        if (!is_numeric($edad)) {
+            $res = "Error: La edad debe ser numerica.";
+            echo json_encode($res, JSON_PRETTY_PRINT);
+            exit;
+        }
+    }
 
-echo json_encode($mensaje, JSON_PRETTY_PRINT);
+    $maxEdad = max($edades);
+    $maxEdadIndex = array_search($maxEdad, $edades);
 
+    $personaMaxEdad = array(
+        "Nombre" => $nombres[$maxEdadIndex],
+        "Edad" => $maxEdad
+    );
+
+    $mensaje = array(
+        "Lista de Estudiantes" => $_DATA,
+        "Estudiante con Mayor Edad" => $personaMaxEdad,
+    );
+
+    try {
+        $res = match($METHOD){
+            "POST" => algoritmo(...$_DATA)
+        };
+    } catch (\Throwable $th) {
+        $res = "Error";
+    }
+
+    echo json_encode($mensaje, JSON_PRETTY_PRINT);
 ?>

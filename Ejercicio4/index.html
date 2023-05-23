@@ -10,15 +10,13 @@
 <body>
     <!--   4. Construir el algoritmo que solicite el nombre y edad de 3
     personas y determine el nombre de la persona con mayor edad.-->
-<form id="myFormulario">
-    <input type="text" name="nombre1" placeholder="Ingrese el Nombre de la Primer Persona"><br>
-    <input type="text" pattern="[0-9]+" name="edad1" placeholder="Ingrese la Edad">Años<br>
-    <input type="text" name="nombre2" placeholder="Ingrese el Nombre de la Segunda Persona"><br>
-    <input type="text" pattern="[0-9]+" name="edad2" placeholder="Ingrese la Edad">Años<br>
-    <input type="text" name="nombre3" placeholder="Ingrese el Nombre de la Tercer Persona"><br>
-    <input type="text" pattern="[0-9]+" name="edad3" placeholder="Ingrese la Edad">Años<br>
-    <input type="submit" value="Enviar">
-</form>
-<pre></pre>
+    <form id="myFormulario">
+        <label>Nombre del Estudiante</label><br>
+        <input type="text" name="nombre" placeholder="Ingrese Nombre del Estudiante"><br><br>
+        <label>Edad del Estudiante</label><br>
+        <input type="text" pattern="[0-9-.]+" name="edad" placeholder="Ingrese la edad del Estudiante"><br><br>
+        <input type="submit" value="Enviar">
+    </form>
+    <pre id="resultado"></pre>
 </body>
 </html>
