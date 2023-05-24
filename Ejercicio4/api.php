@@ -1,21 +1,23 @@
 <?php
-    header("Content-Type: application/json; charset:UTF-8");
-    $_DATA = json_decode(file_get_contents("php://input"), true);
-    $METHOD = $_SERVER["REQUEST_METHOD"];
+header("Content-Type: application/json; charset:UTF-8");
+$_DATA = json_decode(file_get_contents("php://input"), true);
+$METHOD = $_SERVER["REQUEST_METHOD"];
 
-    try {
-        $res = match($METHOD){
-            "POST" => algoritmo(...$_DATA)
-        };
-    } catch (\Throwable $th) {
-        $res = "Error";
-    }
+try {
+    $res = match ($METHOD) {
+        "POST" => algoritmo(...$_DATA)
+    };
+} catch (\Throwable $th) {
+    $res = "Error";
+}
+;
 
-    function algoritmo(){
-        global $_DATA;
-        $nombres = array_column($_DATA, 'nombre');
+function algoritmo()
+{
+    global $_DATA;
+    $nombres = array_column($_DATA, 'nombre');
     $edades = array_column($_DATA, 'edad');
-    $registros = $_DATA; 
+    $registros = $_DATA;
 
     foreach ($nombres as $nombre) {
         if (!is_string($nombre) || empty(trim($nombre)) || !preg_match('/^[A-Za-z]+$/', $nombre)) {
@@ -47,7 +49,7 @@
     );
 
     echo json_encode($mensaje, JSON_PRETTY_PRINT);
-    }
+}
 
-    
+
 ?>

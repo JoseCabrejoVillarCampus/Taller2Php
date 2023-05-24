@@ -17,7 +17,11 @@
         <label>Nombre del Estudiante</label><br>
         <input type="text" name="nombre" placeholder="Ingrese Nombre del Estudiante"><br><br>
         <label>Sexo del Estudiante</label><br>
-        <input type="text" name="sexo" placeholder="Ingrese Sexo del Estudiante"><br><br>
+        <select name="sexo">
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+        </select><br><br>
+        <!-- <input type="text" name="sexo" placeholder="Ingrese Sexo del Estudiante"><br><br> -->
         <label>Nota Definitiva del Estudiante</label><br> 
         <input type="text" pattern="[0-9-.]+" name="notaDef" placeholder="Ingrese la nota "><br><br>
         <input type="submit" value="Enviar">
